@@ -33,4 +33,9 @@ public class GroupController {
     public Group updateGroup(@PathVariable int id, @RequestBody Group group) throws Exception {
         return groupService.updateGroup(id, group);
     }
+
+    @GetMapping()
+    public List<Group> getGroups() {
+        return groupService.getGroups();
+    }
 }

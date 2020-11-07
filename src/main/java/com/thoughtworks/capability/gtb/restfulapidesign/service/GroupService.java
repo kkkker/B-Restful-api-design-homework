@@ -5,8 +5,6 @@ import com.thoughtworks.capability.gtb.restfulapidesign.dto.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.NoSuchGroupIdFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +25,12 @@ public class GroupService {
     @Autowired
     public GroupService(StudentService studentService) {
         this.studentService = studentService;
+    }
+
+    public List<Group> getGroups() {
+        return groupDataBase.values().stream()
+                .sorted(Comparator.comparing(Group::getId))
+                .collect(Collectors.toList());
     }
 
     public List<Group> divideStudents() {
