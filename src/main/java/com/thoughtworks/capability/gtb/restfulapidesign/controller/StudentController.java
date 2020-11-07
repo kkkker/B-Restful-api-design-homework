@@ -44,4 +44,10 @@ public class StudentController {
     public List<Student> getStudents(@RequestParam(required = false) String gender) {
         return studentService.getStudents(gender);
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Student getStudent(@PathVariable int id) throws Exception {
+        return studentService.getStudent(id);
+    }
 }

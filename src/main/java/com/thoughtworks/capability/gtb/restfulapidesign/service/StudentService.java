@@ -40,4 +40,11 @@ public class StudentService {
                 .filter(student -> gender == null || gender.equals(student.getGender()))
                 .collect(Collectors.toList());
     }
+
+    public Student getStudent(int id) throws Exception {
+        if (!studentDataBase.containsKey(id)) {
+            throw new NoSuchStudentIdFoundException();
+        }
+        return studentDataBase.get(id);
+    }
 }
