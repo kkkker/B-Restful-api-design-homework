@@ -5,7 +5,9 @@ import com.thoughtworks.capability.gtb.restfulapidesign.exception.NoSuchStudentI
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -31,5 +33,11 @@ public class StudentService {
             throw new NoSuchStudentIdFoundException();
         }
         studentDataBase.remove(id);
+    }
+
+    public List<Student> getStudents(String gender) {
+        return studentDataBase.values().stream()
+                .filter(student -> gender == null || gender.equals(student.getGender()))
+                .collect(Collectors.toList());
     }
 }
