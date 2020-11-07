@@ -2,8 +2,11 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.dto.Group;
 import com.thoughtworks.capability.gtb.restfulapidesign.dto.Student;
+import com.thoughtworks.capability.gtb.restfulapidesign.exception.NoSuchGroupIdFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,5 +50,13 @@ public class GroupService {
         return groupDataBase.values().stream()
                 .sorted(Comparator.comparing(Group::getId))
                 .collect(Collectors.toList());
+    }
+
+    public Group updateGroup(int id, Group group) throws Exception {
+        if (!groupDataBase.containsKey(id)) {
+            throw new NoSuchGroupIdFoundException();
+        }
+        groupDataBase.get(id).setName(group.getName());
+        return groupDataBase.get(id);
     }
 }

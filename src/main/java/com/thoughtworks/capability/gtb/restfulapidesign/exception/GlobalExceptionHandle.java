@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandle {
 
-    @ExceptionHandler(NoSuchStudentIdFoundException.class)
-    public ResponseEntity<ErrorResponse> handle(NoSuchStudentIdFoundException exception) {
+    @ExceptionHandler({NoSuchStudentIdFoundException.class,
+            NoSuchGroupIdFoundException.class})
+    public ResponseEntity<ErrorResponse> handle(Exception exception) {
         return ResponseEntity.notFound().build();
     }
 }
