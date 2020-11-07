@@ -3,6 +3,8 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 import com.thoughtworks.capability.gtb.restfulapidesign.dto.Student;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.NoSuchStudentIdFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,5 +48,15 @@ public class StudentService {
             throw new NoSuchStudentIdFoundException();
         }
         return studentDataBase.get(id);
+    }
+
+
+    public Student updateStudent(int id, Student student) throws Exception {
+        if (!studentDataBase.containsKey(id)) {
+            throw new NoSuchStudentIdFoundException();
+        }
+        student.setId(id);
+        studentDataBase.replace(id, student);
+        return student;
     }
 }
